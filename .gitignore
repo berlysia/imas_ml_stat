@@ -1,4 +1,5 @@
-*.erb
 tmp/*
+*.erb
 Rakefile
-refresh.rb
+index3*
+index2*
