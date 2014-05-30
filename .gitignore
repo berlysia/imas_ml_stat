@@ -1,0 +1,4 @@
+*.erb
+tmp/*
+Rakefile
+refresh.rb

@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>アイドルマスター ミリオンライブ！ ステータスデータベース</title>
+    <script src="../js/jquery-2.0.3.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <style type="text/css">
+      .container {
+        overflow: hidden;
+        min-height: 600px;
+      }
+      td, th {
+        white-space: nowrap;
+        font-size: 13px;
+      }
+      table {
+        /*overflow: scroll;*/
+        min-height: 200px;
+      }
+      .active {
+        background: #ccf !important;
+      }
+      #nav-affix {
+        width:100%;
+      }
+      #nav-affix.affix {
+        background-color: rgba(255,255,255,0.98);
+        top: 0;
+      }
+      #view-attrs td, #view-attrs th {
+        height: 64px;
+        width: 64px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="page-header">
+        <h1>アイドルマスター ミリオンライブ！ ステータスデータベース</h1>
+        <p>内容について一切保証しません・ここを利用したことによるいかなる不利益に対しても責任を負いません。</p>
+        <p>2014/05/26 <a href='http://www.millionlive.com/'>ミリオンライブwiki</a>から取得しています。</p>
+        <p>非同期対応しました。表示対象を変更した場合はソートし直すと反映されます。</p>
+        <p>2014/03/22 出品状況へのリンクを試験的に表示しています。</p>
+      </div>
+
+      <div id='nav-affix'>
+        <ul class="nav nav-tabs">
+          <li>
+            <a data-toggle="modal" href="#" data-target="#view-attrs">
+              表示する属性・レアリティの変更
+            </a>
+          </li>
+          <li>
+            <a data-toggle="modal" data-target="#view-config" href="#">
+              表中の表示項目設定
+            </a>
+          </li>
+          <li><a href='#'>stub</a></li>
+        </ul>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="view-config" tabindex="-1" role="dialog" aria-labelledby="view-config-label" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="view-config-label">表示項目設定</h4>
+            </div>
+            <div class="modal-body">
+              
+              
+              <p>
+                <button type='button' class='btn btn-info btn-lg' id='feat-1'>ID</button>
+              
+              
+              
+                <button type='button' class='btn btn-info btn-lg' id='feat-2'>属性</button>
+              
+              
+              
+                <button type='button' class='btn btn-info btn-lg' id='feat-3'>レア度</button>
+              
+              
+              
+                <button type='button' class='btn btn-info btn-lg' id='feat-4'>カード名</button>
+              </p>
+              
+              <p>
+                <button type='button' class='btn btn-info btn-lg' id='feat-5'>アイドル名</button>
+              
+              
+              
+                <button type='button' class='btn btn-info btn-lg' id='feat-6'>コスト</button>
+              
+              
+              
+                <button type='button' class='btn btn-info btn-lg' id='feat-7'>LVMAX</button>
+              
+              
+              
+                <button type='button' class='btn btn-info btn-lg' id='feat-8'>AP</button>
+              </p>
+              
+              <p>
+                <button type='button' class='btn btn-info btn-lg' id='feat-9'>DP</button>
+              
+              
+              
+                <button type='button' class='btn btn-info btn-lg' id='feat-10'>MAX AP</button>
+              
+              
+              
+                <button type='button' class='btn btn-info btn-lg' id='feat-11'>MAX DP</button>
+              
+              
+              
+                <button type='button' class='btn btn-info btn-lg' id='feat-12'>スキル</button>
+              </p>
+              
+              <p>
+                <button type='button' class='btn btn-info btn-lg' id='feat-13'>効果</button>
+              
+              
+              
+                <button type='button' class='btn btn-info btn-lg' id='feat-14'>入手手段</button>
+              
+              
+              
+                <button type='button' class='btn btn-info btn-lg' id='feat-15'>ポーズ追加</button>
+              
+              
+              
+                <button type='button' class='btn btn-info btn-lg' id='feat-16'>売却価格</button>
+              </p>
+              
+              <p>
+                <button type='button' class='btn btn-info btn-lg' id='feat-17'>親愛度上限</button>
+              
+              
+              
+                <button type='button' class='btn btn-info btn-lg' id='feat-18'>詳細</button>
+              
+              
+              
+                <button type='button' class='btn btn-info btn-lg' id='feat-19'>(AP+DP)/cost</button>
+              
+              
+              
+                <button type='button' class='btn btn-info btn-lg' id='feat-20'>AP/DP</button>
+              </p>
+              
+              <p>
+                <button type='button' class='btn btn-info btn-lg' id='feat-21'>DP/AP</button>
+              
+              
+              
+                <button type='button' class='btn btn-info btn-lg' id='feat-22'>AP/(AP+DP)</button>
+              
+              
+              
+                <button type='button' class='btn btn-info btn-lg' id='feat-23'>DP/(AP+DP)</button>
+              
+              
+              
+                <button type='button' class='btn btn-info btn-lg' id='feat-24'>出品一覧</button>
+              </p>
+              
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+      <div class="modal fade" id="view-attrs" tabindex="-1" role="dialog" aria-labelledby="view-attrs-label" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="view-attrs-label">表示項目設定</h4>
+            </div>
+            <div class="modal-body">
+              <table class='table table-bordered'>
+                <tbody>
+                  <tr>
+                    <th class='select-all' id='select-all'>All</th>
+                    <th class='select-col' id='select-Vo'>Vo</th>
+                    <th class='select-col' id='select-Da'>Da</th>
+                    <th class='select-col' id='select-Vi'>Vi</th>
+                    <th class='select-col' id='select-Ex'>Ex</th>
+                  </tr>
+                  <tr>
+                    <th class='select-row' id='select-N'>N</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th class='select-row' id='select-HN'>HN</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th class='select-row' id='select-R'>R</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th class='select-row' id='select-HR'>HR</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th class='select-row' id='select-SR'>SR</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              <p>
+                レアリティ・属性の表示されているエリアを選択すると、そこに属する項目がすべて選択されます。
+              </p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <table class='table table-striped table-sort' id="main-table">
+        <thead>
+          <tr>
+            <th class="table-sort column-numeric">ID</th>
+            <th class="table-sort">属性</th>
+            <th class="table-sort">レア度</th>
+            <th>カード名</th>
+            <th class="table-sort">アイドル名</th>
+            <th class="table-sort column-numeric">コスト</th>
+            <th>LVMAX</th>
+            <th class="table-sort column-numeric">AP</th>
+            <th class="table-sort column-numeric">DP</th>
+            <th class="table-sort column-numeric">MAX AP</th>
+            <th class="table-sort column-numeric">MAX DP</th>
+            <th class="table-sort">スキル</th>
+            <th class="table-sort">効果</th>
+            <th>入手手段</th>
+            <th class="table-sort">ポーズ追加</th>
+            <th class="table-sort column-numeric">売却価格</th>
+            <th class="table-sort">親愛度上限</th>
+            <th>詳細</th>
+            <th class='table-sort column-numeric'>(AP+DP)/cost</th>
+            <th class='table-sort column-numeric'>AP/DP</th>
+            <th class='table-sort column-numeric'>DP/AP</th>
+            <th class='table-sort column-numeric'>AP/(AP+DP)</th>
+            <th class='table-sort column-numeric'>DP/(AP+DP)</th>
+            <th class='table-sort'>出品一覧</th>
+            <!-- <th class='table-sort'>成立履歴</th> -->
+          </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+      <script type="text/javascript">
+        // http://qiita.com/_shimizu/items/e45f94e7ee8a75a04e50
+        var parseSV = function(str, delimiter){
+          if(!delimiter) delimiter = ","
+          return str.split('\n').reduce(function(table,row){
+            if(!table) return;
+            table.push(
+              row.split(delimiter).map(function(d){ return d.trim() })
+            );
+            return table;
+          }, []);
+        }
+
+        var dbg = false;
+
+        var imas_ml = imas_ml || {
+          disp: [],
+          list: [],
+          db: {
+            Vo_N: [],
+            Vo_HN: [],
+            Vo_R: [],
+            Vo_HR: [],
+            Vo_SR: [],
+            Da_N: [],
+            Da_HN: [],
+            Da_R: [],
+            Da_HR: [],
+            Da_SR: [],
+            Vi_N: [],
+            Vi_HN: [],
+            Vi_R: [],
+            Vi_HR: [],
+            Vi_SR: [],
+            Ex_N: [],
+            Ex_HN: [],
+            Ex_R: [],
+            Ex_HR: [],
+            Ex_SR: [],
+            load: function(keyword){
+              // console.log('load: received keyword:', keyword);
+              if(imas_ml.db[keyword].length===0){
+                var url = './millionlive_' + keyword + '.csv';
+                return $.ajax({async:true,url:url}).done(function(d,s){
+                  d=parseSV(d,',');
+                  d.pop(); //trim
+                  imas_ml.db[keyword] = d;
+                });
+              }
+              return imas_ml.db[keyword];
+            }
+          },
+          keywordHandler: function(keywords){
+            // console.log('keywordHandler: received keyword(s)', keywords);
+            if(typeof keywords === 'string') keywords = [keywords];
+            var foo = []
+            var ll = keywords.length;
+            for (var i = 0; i < ll; i++) {
+              var str = keywords[i];
+
+              if(/^(Vo|Da|Vi|Ex)$/.exec(str)){
+                foo.push(str+'_N');
+                foo.push(str+'_HN');
+                foo.push(str+'_R');
+                foo.push(str+'_HR');
+                foo.push(str+'_SR');
+              }else if(/^(N|HN|R|HR|SR)$/.exec(str)){
+                foo.push('Vo_'+str);
+                foo.push('Da_'+str);
+                foo.push('Vi_'+str);
+                foo.push('Ex_'+str);
+              }else if(str==='All'){
+                return this.keywordHandler(['Vo','Da','Vi','Ex']);
+              }else if(/^(Vo|Da|Vi|Ex)_(N|HN|R|HR|SR)$/.exec(str)){
+                foo.push(str);
+              }else{
+                console.log('unexpected object',str);
+              }
+            }
+
+            localStorage.filter = JSON.stringify(foo);
+
+            return foo;
+          },
+          updateList: function(keywords){
+            this.clearList();
+            keywords = $.unique(this.keywordHandler(keywords).sort());
+            var kl = keywords.length, dfds = [];
+            for (var i = 0; i < kl; i++) {
+              dfds.push(this.db.load(keywords[i]));
+            };
+
+            return $.when.apply(null,dfds).done(function(){
+              for (var i = 0; i < kl; i++) {
+                this.list = this.list.concat(this.db[keywords[i]]);
+              };
+            }.bind(this));
+          },
+          tableReload: function(){
+            var trStr = [];
+            $.each(this.list,function(i,row){
+              trStr.push("<tr>");
+              $.each(row,function(i,cell){
+                switch(i){
+                  case 0:
+                    trStr.push("<td>"+cell+"</td>");
+                    break;
+                  default:
+                    trStr.push("<td>"+cell+"</td>");
+                }
+              });
+              var base = function(num){return "<a href='http://imas.gree-apps.net/app/index.php/bazaar/search_list/from/detail/type/1/mci/"+row[0]+"/no/"+num+"/'>"+num+"</a>";};
+              trStr.push("<td>"+base(0)+","+base(1)+","+base(2)+","+base(3)+"</td>");
+              // trStr.push("<td><a href='http://imas.gree-apps.net/app/index.php/bazaar/trade_history/from/search/type/1/id/0/mci/"+row[0]+"/type/1/page/1/box_type/1'>log</a></td>");
+
+              trStr.push("</tr>");
+            });
+            $(trStr.join("\n")).appendTo($('#main-table tbody').empty());
+          },
+          clearList: function(){
+            this.list = [];
+          },
+          reload: function(keywords){
+            dbg || console.log('reload: called with ', keywords);
+            keywords = (keywords && $.unique(this.keywordHandler(keywords).sort())) || [];
+
+            var dfds = [];
+            if(keywords.length>0) dfds.push(this.updateList(keywords));
+            else dfds.push(this.clearList());
+            $.when.apply(null,dfds).done(function(){
+              this.disp = keywords;
+              dbg || console.log('reload: saved ',this.disp);
+              this.viewHandler();
+              this.tableReload();
+            }.bind(this)).done(function(){
+              this.featuresHandler();
+            }.bind(this));
+          },
+          dbSort: function(i,reverse,isNumeric){
+            dbg || console.log('index:',i,' reverse?:',reverse,' numeric?',isNumeric);
+            if (isNumeric) imas_ml.list.sort(function(a,b){
+              if(parseFloat(a[i]||0)<parseFloat(b[i]||0)) return -1;
+              if(parseFloat(a[i]||0)>parseFloat(b[i]||0)) return 1;
+              return 0;
+            });
+            else imas_ml.list.sort(function(a,b){
+              if(a[i]<b[i]) return -1;
+              if(a[i]>b[i]) return 1;
+              return 0;
+            });
+            return reverse ? imas_ml.list.reverse() : imas_ml.list;
+          },
+          featuresHandler: function(){
+            var features = JSON.parse(localStorage.features || '[]');
+            $.each(features,function(){
+              var num = this;
+              var id = '#feat-'+num;
+              $(id).removeClass('btn-info').addClass('btn-default');
+              $('#main-table tr td:nth-child('+num+'), #main-table tr th:nth-child('+num+')').hide();
+            });
+          },
+          viewHandler: function(){
+            $('#view-attrs td, #view-attrs th').removeClass('active');
+            this.disp.forEach(function(e,i,a){
+              var foo = e.split('_'), x = [], y = [];
+              switch(foo[0]){
+                case 'Vo': x.push(1); break;
+                case 'Da': x.push(2); break;
+                case 'Vi': x.push(3); break;
+                case 'Ex': x.push(4); break;
+                default: x = [1,2,3,4];
+              }
+              switch(foo[1]){
+                case 'N': y.push(1); break;
+                case 'HN': y.push(2); break;
+                case 'R': y.push(3); break;
+                case 'HR': y.push(4); break;
+                case 'SR': y.push(5); break;
+                default: y = [1,2,3,4,5];
+              }
+
+              $('#view-attrs tr').slice(y[0],y[y.length-1]+1).map(function(){return $(this).find('td,th').slice(x[0],x[x.length-1]+1).get()}).addClass('active')
+            });
+          }
+        };
+
+        $('#view-attrs td, #view-attrs th').on({
+          "click": function(){
+            var region = ['','Vo','Da','Vi','Ex'];
+            var rarity = ['','N','HN','R','HR','SR'];
+            var regionNum = $(this).parent().children().index(this);
+            var rarityNum = $('#view-attrs tr').index($(this).parent());
+
+            var target = region[regionNum]+'_'+rarity[rarityNum];
+            var disp = imas_ml.disp;
+            disp.indexOf(target);
+
+            if(target==='_'){
+              var whole = $('#view-attrs td');
+              var active = whole.get().filter(function(v,i,a){return $(v).hasClass('active')})
+              imas_ml.reload((whole.length == active.length) ? [] : ['All']);
+            }else if(disp.indexOf(target)>=0){
+              disp.splice(disp.indexOf(target),1);
+              imas_ml.reload(disp);
+            }else if(rarityNum==0 || regionNum==0){
+              var matchstr, size;
+              if(regionNum!=0){
+                matchstr = region[regionNum]+'_';
+                size = 5;
+              }else if(rarityNum!=0){
+                matchstr = '_'+rarity[rarityNum];
+                size = 4;
+              }
+              var foo = disp.filter(function(v,i,a){return v.match(matchstr)});
+              if(foo.length == size){
+                imas_ml.reload(disp.filter(function(v,i,a){return !v.match(matchstr)}));
+              }else{
+                if(target.match(/^_|_$/)) target = target.replace('_','');
+                imas_ml.reload([target].concat(disp));
+              }
+            }else{
+              if(target.match(/^_|_$/)) target = target.replace('_','');
+              imas_ml.reload([target].concat(disp));
+            }
+          }
+        });
+
+        $('#view-config .modal-body button').on({
+          "click":function(){
+            var id = $(this).attr('id');
+            var num = id.split("-")[1];
+            $(this).toggleClass('btn-info').toggleClass('btn-default');
+            $('#main-table tr').find('td:nth-child('+num+'), th:nth-child('+num+')').toggle();
+
+            var ids = []
+            $('#view-config .modal-body button.btn-default').each(function(){
+              ids.push($(this).attr('id').split('-')[1]);
+            });
+            localStorage.features = JSON.stringify(ids);
+          }
+        });
+
+        $('#main-table th').on({
+          'click':function(){
+            if(!$(this).hasClass('table-sort')) return null;
+            var index = $('#main-table thead tr th').index(this);
+            var reversed = $(this).hasClass('column-reversed');
+            var numeric = $(this).hasClass('column-numeric');
+            imas_ml.dbSort(index,reversed,numeric);
+            imas_ml.tableReload();
+
+            $('#main-table thead tr th').removeClass('column-sorted').removeClass('column-reversed');
+            if(reversed) $(this).addClass('column-sorted');
+            else $(this).addClass('column-sorted').addClass('column-reversed');
+
+            return imas_ml.featuresHandler();
+          }
+        });
+
+        $(document).ready(function(){
+          var filter = JSON.parse(localStorage.filter || '["Vo_R","Vo_HR","Vo_SR"]');
+          imas_ml.reload(filter);
+        });
+
+        $('#nav-affix').affix({
+          offset: {
+            top: 240
+          }
+        });
+
+      </script>
+    </div>
+  </body>
+</html>

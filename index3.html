@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>アイドルマスター ミリオンライブ！ ステータスデータベース</title>
+    <meta name="viewport" content="width=device-width">
+    <script type="text/javascript" charset="utf-8" src="../js/jquery-2.0.3.min.js"></script>
+    <style>
+      html, body {
+        height: 100%;
+        font-size: 16px;
+      }
+
+      body {
+        margin: 0 auto;
+      }
+
+      header {
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: #fff;
+        height: auto;
+      }
+
+      #table_header {
+        overflow: hidden;
+      }
+
+      #table_content {
+      }
+
+      table {
+        border-collapse: collapse;
+        table-layout: fixed;
+      }
+
+      #table_header table th, #table_content table td {
+        line-height: 2.4em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: pre;
+        border: 1px solid cyan;
+        padding: auto 0;
+      }
+
+      #table_content tr {
+        border-bottom: 1px solid #ddd;
+      }
+
+      #table_content tr:nth-child(2n) {
+        background: #fff;
+      }
+
+      #table_content tr:nth-child(2n+1) {
+        background: #ddd;
+      }
+
+      #filter_config {
+        margin: 0 auto;
+        height: 92px;
+      }
+
+      .mark {
+        position: absolute;
+        background: #fcc;
+        display: inline-block;
+        text-align: center;
+        height: 92px;
+        width: 92px;
+        margin-left: -46px;
+      }
+
+      #vocal {
+        left: 20%;
+      }
+
+      #dance {
+        left: 40%;
+      }
+
+      #visual {
+        left: 60%;
+      }
+
+      #search {
+        left: 80%;
+      }
+
+      @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+      only screen and (min-device-pixel-ratio: 1.5){
+        body {
+          font-size: 27px;
+        }
+        #filter_config {
+          height: 138px;
+        }
+        .mark {
+          height: 138px;
+          width: 138px;
+          margin-left: -69px;
+        }
+      }
+
+      @media only screen and (-webkit-min-device-pixel-ratio: 2),
+      only screen and (min-device-pixel-ratio: 2){
+        body {
+          font-size: 42px;
+        }
+        #filter_config {
+          height: 184px;
+        }
+        .mark {
+          height: 184px;
+          width: 184px;
+          margin-left: -92px;
+        }
+      }
+
+      /*
+      @media screen and (min-width: 0px) and (max-device-width: 320px){
+      }
+      @media screen and (min-width: 321px) and (max-device-width: 920px){
+      }
+      @media screen and (min-width: 921px){
+      }
+      */
+
+    </style>
+  </head>
+  <body>
+    <header>
+      <div id="filter_config">
+        <span class="mark" id="vocal">Vo</span><!--
+        --><span class="mark" id="dance">Da</span><!--
+        --><span class="mark" id="visual">Vi</span><!--
+        --><span class="mark" id="search">Q</span>
+      </div>
+      <div id="table_header">
+        <table>
+          <thead>
+            <tr>
+              <th>属性</th>
+              <th>レア度</th>
+              <th>カード名</th>
+              <th>アイドル名</th>
+              <th>カードID</th>
+              <th>コスト</th>
+              <th>LV</th>
+              <th>AP</th>
+              <th>DP</th>
+              <th>MAX AP</th>
+              <th>MAX DP</th>
+              <th>スキル</th>
+              <th>効果</th>
+              <th>排出されるガチャ</th>
+              <th>売却価格</th>
+              <th>親愛度上限</th>
+              <th>詳細</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </header>
+
+    <div id="table_content">
+      <table>
+
+      </table>
+    </div>
+
+    <script type="text/javascript" charset="utf-8">
+      window.onscroll = function(){
+        $("#table_header")[0].scrollLeft = window.scrollX;
+      };
+
+      $(function(){
+        var ths = $("#table_header tr th");
+        var cellSizes = [];
+
+        $('#table_content tr:first-child > td').each(function(i,elem){
+          cellSizes[i] = Math.max($(ths[i]).width(),$(elem).width())+4;
+        })
+
+        var tableSize = cellSizes.reduce(function(a,b){return a+b;}) + cellSizes.length*3;
+
+        $("#table_header table").width(tableSize);
+        $("#table_content table").width(tableSize);
+
+        $('#table_content tr:first-child > td').each(function(i,elem){
+          $(ths[i]).width(cellSizes[i]);
+          $(elem).width(cellSizes[i]);
+        });
+
+        $("#table_content").css("margin-top",$('header').height()+'px');
+
+      })
+
+    </script>
+  </body>
+</html>
