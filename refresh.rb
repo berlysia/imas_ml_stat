@@ -176,7 +176,12 @@ def create_csv
   base_name = 'millionlive_'
 
   # csvが持つキーとその順序
-  keylist = ["カードID","属性", "レア度", "カード名", "アイドル名", "コスト", "LVMAX", "AP", "DP", "MAX AP", "MAX DP", "スキル", "効果", "入手場所(ガシャ/覚醒等)", "ポーズ追加", "売却価格", "親愛度上限", "詳細", "(AP+DP)/cost", "AP/DP", "DP/AP", "AP/(AP+DP)", "DP/(AP+DP)"]
+  keylist = [
+    "カードID","属性", "レア度", "カード名", "アイドル名", "コスト", "LVMAX",
+    "AP", "DP", "MAX AP", "MAX DP", "スキル", "効果", "入手場所(ガシャ/覚醒等)",
+    "ポーズ追加", "売却価格", "親愛度上限", "詳細",
+    "(AP+DP)/cost","AP/DP", "DP/AP", "AP/(AP+DP)", "DP/(AP+DP)"
+  ]
 
   id_hash = get_idhash
 
@@ -194,10 +199,16 @@ def create_csv
       card_base = {}
       card_base['属性'] = region
       card_base['レア度'] = rarity
+      puts filepath
       html = Nokogiri::HTML(open(filepath))
       html.search('tbody')[0].search('tr:not(:first-child)').each do |row|
+        next if row.children.size < 2
         key = row.children[0].text
         value = row.children[1].text.gsub(/[()､　／ａ-ｚＡ-Ｚ]/,@rules)
+        unless keylist.include?(key)
+          puts "#{key}: not found in keylist"
+          next
+        end
         card_base[key] = value
         if key === 'カード名'
           card_base['アイドル名'] = value.split(/[\s]/)[-1]
@@ -214,7 +225,6 @@ def create_csv
               end
             end
 
-            puts "#{card_base['カード名']} : => #{estimated}." if 0 < estimated.size
             puts "#{card_base['カード名']} : それっぽいキーがありませんでした" if estimated.size == 0
 
             card_base['カードID'] = id_hash[estimated] if estimated
