@@ -178,7 +178,7 @@ def create_csv
   # csvが持つキーとその順序
   keylist = [
     "カードID","属性", "レア度", "カード名", "アイドル名", "コスト", "LVMAX",
-    "AP", "DP", "MAX AP", "MAX DP", "スキル", "効果", "入手場所(ガシャ/覚醒等)",
+    "AP", "DP", "MAX AP", "MAX DP", "スキル", "効果", "入手手段",
     "ポーズ追加", "売却価格", "親愛度上限", "詳細",
     "(AP+DP)/cost","AP/DP", "DP/AP", "AP/(AP+DP)", "DP/(AP+DP)"
   ]
@@ -201,13 +201,17 @@ def create_csv
       card_base['レア度'] = rarity
       puts filepath
       html = Nokogiri::HTML(open(filepath))
-      html.search('tbody')[0].search('tr:not(:first-child)').each do |row|
+      html.search('tbody')[0].search('tr:not(:first-child)')[0...12].each do |row|
         next if row.children.size < 2
         key = row.children[0].text
         value = row.children[1].text.gsub(/[()､　／ａ-ｚＡ-Ｚ]/,@rules)
         unless keylist.include?(key)
-          puts "#{key}: not found in keylist"
-          next
+          if ["入手場所(ガシャ/覚醒等)","排出されるガチャ"].include?(key)
+            key = "入手手段"
+          else
+            puts "#{key}: not found in keylist"
+            next
+          end
         end
         card_base[key] = value
         if key === 'カード名'
